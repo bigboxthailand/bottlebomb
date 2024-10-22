@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration</title>
+    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+</head>
+<body>
+    <h1>ลงทะเบียนนักเรียน</h1>
+    <form id="registrationForm">
+        <input type="text" id="firstName" placeholder="ชื่อ" required><br>
+        <input type="text" id="lastName" placeholder="นามสกุล" required><br>
+        <input type="text" id="studentId" placeholder="รหัสนักเรียน" required><br>
+        <input type="text" id="phoneNumber" placeholder="เบอร์โทร" required><br>
+        <button type="submit">ลงทะเบียน</button>
+    </form>
+
+    <script>
+        async function main() {
+            await liff.init({ liffId: "YOUR_LIFF_ID" }); // เปลี่ยน YOUR_LIFF_ID เป็น LIFF ID ของคุณ
+            document.getElementById("registrationForm").addEventListener("submit", submitForm);
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+            const firstName = document.getElementById("firstName").value;
+            const lastName = document.getElementById("lastName").value;
+            const studentId = document.getElementById("studentId").value;
+            const phoneNumber = document.getElementById("phoneNumber").value;
+            
+            // ส่งข้อมูลไปยัง Google Apps Script
+            fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    firstName,
+                    lastName,
+                    studentId,
+                    phoneNumber,
+                    userId: liff.getContext().userId // เก็บ User ID ของ LINE
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('ลงทะเบียนเรียบร้อยแล้ว');
+                liff.closeWindow(); // ปิด LIFF หลังจากลงทะเบียน
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        main();
+    </script>
+</body>
+</html>

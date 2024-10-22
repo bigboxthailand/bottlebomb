@@ -16,7 +16,7 @@
 
     <script>
         async function main() {
-            await liff.init({ liffId: "YOUR_LIFF_ID" }); // เปลี่ยน YOUR_LIFF_ID เป็น LIFF ID ของคุณ
+            await liff.init({ liffId: "2006488596-2xNRJMwD" }); // เปลี่ยน YOUR_LIFF_ID เป็น LIFF ID ของคุณ
             document.getElementById("registrationForm").addEventListener("submit", submitForm);
         }
 
@@ -28,7 +28,7 @@
             const phoneNumber = document.getElementById("phoneNumber").value;
             
             // ส่งข้อมูลไปยัง Google Apps Script
-            fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbyDjkf7nV0-cT_m0ZPlMDfCR0SGhPLQBa3YS5PmosV95EB1KY_gbtV3IRPYTL6C6nKeYg/exec', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

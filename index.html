@@ -1,147 +1,41 @@
 <!DOCTYPE html>
-<html lang="th">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Registration</title>
-    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        input[readonly] {
-            background-color: #e9e9e9;
-            color: #666;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 1em;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-            }
-
-            h1 {
-                font-size: 1.2em;
-            }
-
-            button {
-                font-size: 0.9em;
-            }
-        }
-    </style>
+    <title>ส่งข้อมูลแบบ POST</title>
 </head>
-
 <body>
-    <div class="container">
-        <h1>ลงทะเบียนนักเรียน v0.3</h1>
-        <form id="registrationForm">
-            <input type="text" id="userId" placeholder="User ID" readonly><br>
-            <input type="text" id="firstName" placeholder="ชื่อ" value="สมชาย" required><br>
-            <input type="text" id="lastName" placeholder="นามสกุล" value="ใจดี" required><br>
-            <input type="text" id="studentId" placeholder="รหัสนักเรียน" value="123456" required><br>
-            <input type="text" id="phoneNumber" placeholder="เบอร์โทร" value="0801234567" required><br>
-            <button type="submit">ลงทะเบียน</button>
-        </form>
-    </div>
+    <h1>ส่งข้อมูลแบบ POST</h1>
+    <button onclick="sendData()">ส่งข้อมูล v4</button>
 
     <script>
-        async function main() {
-            await liff.init({ liffId: "2006488596-2xNRJMwD" }); // แก้ไขเป็น LIFF ID ของคุณ
+        function sendData() {
+            const url = "https://script.google.com/macros/s/AKfycbwf4xA2CIQu2H70lBNadHFU8Ryd3BAWvBW9IHkA6q_l-5KxwjZazv_MrlJ66Fkt49DURw/exec";
+            const raw = JSON.stringify({
+                "userId": "U1234567890",
+                "firstName": "สมชาย",
+                "lastName": "ใจดี",
+                "studentId": "123456",
+                "phoneNumber": "0801234567"
+            });
 
-            const userId = liff.getContext().userId;
-            document.getElementById("userId").value = userId; // แสดง userId ในฟิลด์แบบอ่านอย่างเดียว
-
-            document.getElementById("registrationForm").addEventListener("submit", submitForm);
-        }
-
-        function submitForm(event) {
-            event.preventDefault();
-            const userId = document.getElementById("userId").value;
-            const firstName = document.getElementById("firstName").value;
-            const lastName = document.getElementById("lastName").value;
-            const studentId = document.getElementById("studentId").value;
-            const phoneNumber = document.getElementById("phoneNumber").value;
-
-            // ส่งข้อมูลไปยัง Google Apps Script
-            fetch('https://script.google.com/macros/s/AKfycbyov8wbwXQ-u5VKlcL0aFEbrO7Z9s0FZAWyla4767v6unP8C5XAxbHm3Xc6j_whz3zWJA/exec', {
-                method: 'POST',
+            fetch(url, {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json"
                 },
-                body: JSON.stringify({
-                    userId,
-                    firstName,
-                    lastName,
-                    studentId,
-                    phoneNumber
-                })
+                body: raw,
+                mode: 'no-cors'
             })
-                .then(response => {
-                    alert('Response status:', response.status);
-                    return response.json();
-                })
-                .then(data => {
-                    alert(data.message || 'ลงทะเบียนเรียบร้อยแล้ว');
-                    liff.closeWindow(); // ปิด LIFF หลังจากลงทะเบียนเสร็จสิ้น
-
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('เกิดข้อผิดพลาดในการลงทะเบียน');
-                    liff.closeWindow(); // ปิด LIFF หลังจากลงทะเบียนเสร็จสิ้น
-                });
+            .then(response => response.json())
+            .then(data => {
+                console.log("Response:", data);
+                alert("ส่งข้อมูลสำเร็จ");
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
+            });
         }
-
-        main();
     </script>
 </body>
-
 </html>

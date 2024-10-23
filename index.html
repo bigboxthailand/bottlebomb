@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@
             min-height: 100vh;
             margin: 0;
         }
+
         .container {
             background: #fff;
             padding: 20px;
@@ -25,11 +27,13 @@
             width: 100%;
             text-align: center;
         }
+
         h1 {
             font-size: 1.5em;
             margin-bottom: 20px;
             color: #333;
         }
+
         input[type="text"] {
             width: 100%;
             padding: 10px;
@@ -38,10 +42,12 @@
             border-radius: 5px;
             box-sizing: border-box;
         }
+
         input[readonly] {
             background-color: #e9e9e9;
             color: #666;
         }
+
         button {
             background-color: #4CAF50;
             color: white;
@@ -52,25 +58,30 @@
             width: 100%;
             font-size: 1em;
         }
+
         button:hover {
             background-color: #45a049;
         }
+
         @media (max-width: 600px) {
             .container {
                 padding: 15px;
             }
+
             h1 {
                 font-size: 1.2em;
             }
+
             button {
                 font-size: 0.9em;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>ลงทะเบียนนักเรียน v0.2</h1>
+        <h1>ลงทะเบียนนักเรียน v0.3</h1>
         <form id="registrationForm">
             <input type="text" id="userId" placeholder="User ID" readonly><br>
             <input type="text" id="firstName" placeholder="ชื่อ" value="สมชาย" required><br>
@@ -84,7 +95,7 @@
     <script>
         async function main() {
             await liff.init({ liffId: "2006488596-2xNRJMwD" }); // แก้ไขเป็น LIFF ID ของคุณ
-            
+
             const userId = liff.getContext().userId;
             document.getElementById("userId").value = userId; // แสดง userId ในฟิลด์แบบอ่านอย่างเดียว
 
@@ -98,7 +109,7 @@
             const lastName = document.getElementById("lastName").value;
             const studentId = document.getElementById("studentId").value;
             const phoneNumber = document.getElementById("phoneNumber").value;
-            
+
             // ส่งข้อมูลไปยัง Google Apps Script
             fetch('https://script.google.com/macros/s/AKfycbyov8wbwXQ-u5VKlcL0aFEbrO7Z9s0FZAWyla4767v6unP8C5XAxbHm3Xc6j_whz3zWJA/exec', {
                 method: 'POST',
@@ -113,18 +124,24 @@
                     phoneNumber
                 })
             })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message || 'ลงทะเบียนเรียบร้อยแล้ว');
-                liff.closeWindow(); // ปิด LIFF หลังจากลงทะเบียนเสร็จสิ้น
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('เกิดข้อผิดพลาดในการลงทะเบียน');
-            });
+                .then(response => {
+                    alert('Response status:', response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    alert(data.message || 'ลงทะเบียนเรียบร้อยแล้ว');
+                    liff.closeWindow(); // ปิด LIFF หลังจากลงทะเบียนเสร็จสิ้น
+
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('เกิดข้อผิดพลาดในการลงทะเบียน');
+                    liff.closeWindow(); // ปิด LIFF หลังจากลงทะเบียนเสร็จสิ้น
+                });
         }
 
         main();
     </script>
 </body>
+
 </html>

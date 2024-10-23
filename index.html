@@ -70,7 +70,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>ลงทะเบียนนักเรียน</h1>
+        <h1>ลงทะเบียนนักเรียน v0.2</h1>
         <form id="registrationForm">
             <input type="text" id="userId" placeholder="User ID" readonly><br>
             <input type="text" id="firstName" placeholder="ชื่อ" value="สมชาย" required><br>
@@ -100,7 +100,7 @@
             const phoneNumber = document.getElementById("phoneNumber").value;
             
             // ส่งข้อมูลไปยัง Google Apps Script
-            fetch('https://script.google.com/macros/s/AKfycbz_tgBOY0TzerpkQlHLJB1WC1RqtV3r44jd9nupBK_yYtEmKZReTFLlmtE8ZguVGGiBRg/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbyov8wbwXQ-u5VKlcL0aFEbrO7Z9s0FZAWyla4767v6unP8C5XAxbHm3Xc6j_whz3zWJA/exec', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

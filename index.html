@@ -71,22 +71,22 @@
 </head>
 <body>
     <div class="container">
-        <h1>Register BottleBomb v3</h1>
+        <h1>Register BottleBomb v4</h1>
         <form id="userForm">
             <label for="userId">User ID:</label>
-            <input type="text" id="userId" name="userId" readonly placeholder="Loading...">
+            <input type="text" id="userId" name="userId" readonly placeholder="Loading..." value="xxxxx">
             
             <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name">
+            <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name" value="John">
             
             <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="lastName" required placeholder="Enter your last name">
+            <input type="text" id="lastName" name="lastName" required placeholder="Enter your last name" value="Doe">
             
             <label for="studentId">Student ID:</label>
-            <input type="text" id="studentId" name="studentId" required placeholder="Enter your student ID">
+            <input type="text" id="studentId" name="studentId" required placeholder="Enter your student ID" value="00000">
             
             <label for="phoneNumber">Phone Number:</label>
-            <input type="text" id="phoneNumber" name="phoneNumber" required placeholder="Enter your phone number">
+            <input type="text" id="phoneNumber" name="phoneNumber" required placeholder="Enter your phone number" value="0812345678">
             
             <button type="button" onclick="sendData()">Submit</button>
         </form>
@@ -128,12 +128,12 @@
                 return;
             }
 
-            const firstName = document.getElementById("firstName").value;
-            const lastName = document.getElementById("lastName").value;
-            const studentId = document.getElementById("studentId").value;
-            const phoneNumber = document.getElementById("phoneNumber").value;
+            const firstName = document.getElementById("firstName").value.trim();
+            const lastName = document.getElementById("lastName").value.trim();
+            const studentId = document.getElementById("studentId").value.trim();
+            const phoneNumber = document.getElementById("phoneNumber").value.trim();
 
-            const url = "https://script.google.com/macros/s/AKfycbzHgaCr2Ts1rnm1RrhurleEXS1l2tUq9URii4HLikVtICjBhOzMk6uLfQ_WrbTf5J1sOA/exec";
+            const url = "https://script.google.com/macros/s/AKfycbz5Ca4UOELNfGX7xJndj21dsxj4nQ_Y77jcyBcCCRnCe9pYtk0T1v03_JRzrDb6FSy_ew/exec";
             const params = new URLSearchParams({
                 userId: userId,
                 firstName: firstName,
@@ -157,13 +157,13 @@
                     alert("Registration successful");
                     liff.closeWindow(); // ปิด LIFF หลังจากลงทะเบียนสำเร็จ
                 } else {
-                    //alert("Error: " + data.message);
+                    alert("Error");
                     liff.closeWindow(); // ปิด LIFF หลังจากลงทะเบียนสำเร็จ
                 }
             })
             .catch(error => {
                 console.error("Error:", error);
-                //alert("Error in sending data: " + error.message);
+                alert("Error in sending data.");
                 liff.closeWindow(); // ปิด LIFF หลังจากลงทะเบียนสำเร็จ
             });
         }

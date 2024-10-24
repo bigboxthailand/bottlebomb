@@ -135,7 +135,7 @@
 
             const url = "https://script.google.com/macros/s/AKfycbxZ_dfcQkr0XpkL161acIfxfsyuX08vfks9RUTNKdPV8OQgQrZt9NFc9vfXKtSmvwoItw/exec";
             const params = new URLSearchParams({
-                userId: "123456",
+                userId: userId,
                 firstName: firstName,
                 lastName: lastName,
                 studentId: studentId,
@@ -163,7 +163,7 @@
             })
             .catch(error => {
                 console.error("Error:", error);
-                //alert("Error in sending data.");
+                alert("Error in sending data.");
                 liff.closeWindow(); // ปิด LIFF หลังจากลงทะเบียนสำเร็จ
             });
         }

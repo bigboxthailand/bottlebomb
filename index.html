@@ -133,9 +133,9 @@
             const studentId = document.getElementById("studentId").value.trim();
             const phoneNumber = document.getElementById("phoneNumber").value.trim();
 
-            const url = "https://script.google.com/macros/s/AKfycbz5Ca4UOELNfGX7xJndj21dsxj4nQ_Y77jcyBcCCRnCe9pYtk0T1v03_JRzrDb6FSy_ew/exec";
+            const url = "https://script.google.com/macros/s/AKfycbxZ_dfcQkr0XpkL161acIfxfsyuX08vfks9RUTNKdPV8OQgQrZt9NFc9vfXKtSmvwoItw/exec";
             const params = new URLSearchParams({
-                userId: userId,
+                userId: "123456",
                 firstName: firstName,
                 lastName: lastName,
                 studentId: studentId,
@@ -163,7 +163,7 @@
             })
             .catch(error => {
                 console.error("Error:", error);
-                alert("Error in sending data.");
+                //alert("Error in sending data.");
                 liff.closeWindow(); // ปิด LIFF หลังจากลงทะเบียนสำเร็จ
             });
         }
